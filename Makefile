@@ -59,7 +59,7 @@ fmt:
 
 .PHONY: godoc
 godoc:
-	echo "URL: http://localhost:6060/pkg/github.com/sacloud/object-storage-service-go/"
+	echo "URL: http://localhost:6060/pkg/github.com/sacloud/services"
 	godoc -http=localhost:6060
 
 .PHONY: lint-all
