@@ -16,19 +16,33 @@ package services
 
 // SupportedOperation サービスが提供する操作のメタデータ
 type SupportedOperation struct {
-	Name          string
+	// 操作(メソッド)の名前
+	Name string
+
+	// 操作種別、種別によりIdが必要/不要が決定される
 	OperationType Operations
 }
 
 // Service 各サービスが実装すべきインターフェース
 type Service interface {
+	// Info サービスについての情報を返す
+	Info() *Info
+
 	// Operations サポートしている操作のメタデータ一覧
 	// この要素それぞれに対しxxxWithContext()が存在することが期待される
 	Operations() []SupportedOperation
 
 	// Config コンフィグ
 	Config() *Config
+}
 
-	// Validate .
-	Validate(p Parameter) error
+// Info サービスについての情報
+type Info struct {
+	// サービスの説明
+	Description string
+
+	// 親リソースを特定するために必要なフィールドの名前
+	//
+	// 例えばサーバの配下のリソースであれば"ServerId"などが指定される
+	ParentKeys []string
 }

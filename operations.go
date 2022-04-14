@@ -19,12 +19,12 @@ type Operations int
 
 const (
 	OperationsUnknown Operations = iota
-	OperationsCreate
-	OperationsRead
-	OperationsUpdate
-	OperationsDelete
-	OperationsList
-	OperationsAction
+	OperationsCreate             // Id:不要	/ 戻り値:単体
+	OperationsRead               // Id:要 	/ 戻り値:単体
+	OperationsUpdate             // Id:要 	/ 戻り値:単体
+	OperationsDelete             // Id:要 	/ 戻り値:なし
+	OperationsList               // Id:不要	/ 戻り値: スライス
+	OperationsAction             // Id:要 	/ 戻り値: なし
 )
 
 func (o Operations) String() string {
