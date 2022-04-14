@@ -16,8 +16,6 @@ package dummy
 
 import (
 	"context"
-
-	"github.com/sacloud/services"
 )
 
 func (s *Service) Find(req *FindRequest) ([]*FindResult, error) {
@@ -32,8 +30,6 @@ type FindRequest struct {
 	Field1 string `validate:"required"`
 	Field2 string `validate:"omitempty,option2" meta:",options=option2"`
 }
-
-var _ services.Parameter = (*FindRequest)(nil)
 
 func (req *FindRequest) KeyFieldNames() []string {
 	return []string{"Field1"}

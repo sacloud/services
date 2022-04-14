@@ -12,25 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package services_test
+package helper
 
 import (
+	"fmt"
 	"testing"
 
-	"github.com/sacloud/services"
 	"github.com/sacloud/services/dummy"
 	"github.com/stretchr/testify/require"
 )
 
 func TestParameterMeta(t *testing.T) {
-	fields, err := services.ParameterMeta(dummy.New(), "Find")
-	t.Log(fields)
-
+	fields, err := ParameterMeta(dummy.New(), "Find")
 	require.NoError(t, err)
+
+	for i, field := range fields {
+		fmt.Printf("Fields[%d]:\n", i)
+		fmt.Printf("\tStructField: %#+v\n", field.StructField)
+		fmt.Printf("\tTag: %#+v\n", field.Tag)
+		fmt.Printf("\tLongDescription: %#+v\n", field.Tag.LongDescription())
+		fmt.Printf("\tAliasesString: %#+v\n", field.Tag.AliasesString())
+		fmt.Printf("\tOptionsString: %#+v\n", field.Tag.OptionsString())
+	}
 }
 
 func TestNewParameter(t *testing.T) {
-	parameter, err := services.NewParameter(dummy.New(), "Find")
+	parameter, err := NewParameter(dummy.New(), "Find")
 	require.NoError(t, err)
 	require.NotNil(t, parameter)
 
@@ -44,7 +51,7 @@ func TestNewParameter(t *testing.T) {
 func TestValidateParameter(t *testing.T) {
 	tests := []struct {
 		name      string
-		parameter services.Parameter
+		parameter interface{}
 		wantErr   bool
 	}{
 		{
@@ -75,7 +82,7 @@ func TestValidateParameter(t *testing.T) {
 	for _, tt := range tests {
 		service := dummy.New()
 		t.Run(tt.name, func(t *testing.T) {
-			if err := services.ValidateParameter(service, tt.parameter); (err != nil) != tt.wantErr {
+			if err := ValidateStruct(service, tt.parameter); (err != nil) != tt.wantErr {
 				t.Errorf("ValidateParameter() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

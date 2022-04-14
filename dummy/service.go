@@ -20,9 +20,16 @@ import (
 	"github.com/sacloud/services/validate"
 )
 
+var _ services.Service = (*Service)(nil)
+
 type Service struct{}
 
-var _ services.Service = (*Service)(nil)
+func (s *Service) Info() *services.Info {
+	return &services.Info{
+		Description: "Description for Dummy service",
+		ParentKeys:  nil,
+	}
+}
 
 func (s *Service) Operations() []services.SupportedOperation {
 	return []services.SupportedOperation{
@@ -42,7 +49,7 @@ func (s *Service) Config() *services.Config {
 	}
 }
 
-func (s *Service) Validate(p services.Parameter) error {
+func (s *Service) Validate(p interface{}) error {
 	return validate.New(s).Struct(p)
 }
 
