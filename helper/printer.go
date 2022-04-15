@@ -31,6 +31,7 @@ func PrintServiceMeta(service services.Service) {
 	fmt.Println("---")
 	fmt.Printf("# Service[%s]\n", info.Name)
 	fmt.Printf("Name: %s\n", info.Name)
+	fmt.Printf("PkgPath: %s\n", ServicePkgPath(service))
 	fmt.Printf("Description: %s\n", info.Description)
 	fmt.Printf("ParentKeys: %s\n", info.ParentKeys)
 
