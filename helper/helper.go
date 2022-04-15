@@ -23,16 +23,6 @@ import (
 	"github.com/sacloud/services/validate"
 )
 
-// ParameterMeta 指定のfuncのパラメータが持つ各フィールドのメタデータを取得
-func ParameterMeta(service services.Service, funcName string) ([]meta.StructField, error) {
-	parser := metaParser(service)
-	instance, err := NewParameter(service, funcName)
-	if err != nil {
-		return nil, err
-	}
-	return parser.Parse(instance)
-}
-
 // NewParameter 指定のfuncのパラメータを新規作成&初期化して返す
 func NewParameter(service services.Service, funcName string) (interface{}, error) {
 	method, found := reflect.TypeOf(service).MethodByName(funcName)
@@ -44,6 +34,30 @@ func NewParameter(service services.Service, funcName string) (interface{}, error
 		v.Initialize()
 	}
 	return instance, nil
+}
+
+// ServiceMeta 指定のサービスが公開している操作をキーにfuncのパラメータのメタデータを格納したmapを返す
+func ServiceMeta(service services.Service) ([]OperationMeta, error) {
+	ops := service.Operations()
+	var results []OperationMeta
+	for _, op := range ops {
+		fields, err := ParameterMeta(service, op.Name)
+		if err != nil {
+			return nil, err
+		}
+		results = append(results, OperationMeta{Operation: op, Parameters: fields})
+	}
+	return results, nil
+}
+
+// ParameterMeta 指定のfuncのパラメータが持つ各フィールドのメタデータを取得
+func ParameterMeta(service services.Service, funcName string) ([]meta.StructField, error) {
+	parser := metaParser(service)
+	instance, err := NewParameter(service, funcName)
+	if err != nil {
+		return nil, err
+	}
+	return parser.Parse(instance)
 }
 
 // ValidateStruct serviceのコンフィグを反映したバリデーターを用いたバリデーション
