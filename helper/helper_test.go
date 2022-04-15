@@ -23,16 +23,19 @@ import (
 )
 
 func TestParameterMeta(t *testing.T) {
-	fields, err := ParameterMeta(dummy.New(), "Find")
+	ops, err := ServiceMeta(dummy.New())
 	require.NoError(t, err)
 
-	for i, field := range fields {
-		fmt.Printf("Fields[%d]:\n", i)
-		fmt.Printf("\tStructField: %#+v\n", field.StructField)
-		fmt.Printf("\tTag: %#+v\n", field.Tag)
-		fmt.Printf("\tLongDescription: %#+v\n", field.Tag.LongDescription())
-		fmt.Printf("\tAliasesString: %#+v\n", field.Tag.AliasesString())
-		fmt.Printf("\tOptionsString: %#+v\n", field.Tag.OptionsString())
+	for _, op := range ops {
+		fmt.Printf("%s(type:%s):\n", op.Operation.Name, op.Operation.OperationType)
+		for _, field := range op.Parameters {
+			fmt.Printf("\t%s:\n", field.Name)
+			fmt.Printf("\t\tStructField: %#+v\n", field.StructField)
+			fmt.Printf("\t\tTag: %#+v\n", field.Tag)
+			fmt.Printf("\t\tLongDescription: %#+v\n", field.Tag.LongDescription())
+			fmt.Printf("\t\tAliasesString: %#+v\n", field.Tag.AliasesString())
+			fmt.Printf("\t\tOptionsString: %#+v\n", field.Tag.OptionsString())
+		}
 	}
 }
 
