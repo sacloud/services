@@ -18,29 +18,15 @@ import (
 	"context"
 )
 
-func (s *Service) Find(req *FindRequest) ([]*FindResult, error) {
-	return s.FindWithContext(context.Background(), req)
+func (s *Service) Echo(req *EchoRequest) (*EchoRequest, error) {
+	return s.EchoWithContext(context.Background(), req)
 }
 
-func (s *Service) FindWithContext(ctx context.Context, req *FindRequest) ([]*FindResult, error) {
-	return []*FindResult{
-		{Dummy: "result1"},
-		{Dummy: "result2"},
-		{Dummy: "result3"},
-	}, nil
+func (s *Service) EchoWithContext(ctx context.Context, req *EchoRequest) (*EchoRequest, error) {
+	return req, nil
 }
 
-type FindRequest struct {
-	Field1 string `validate:"required"`
-	Field2 string `validate:"omitempty,option2" meta:",options=option2"`
-}
-
-func (req *FindRequest) Initialize() {
-	// 初期値はここで設定する
-	req.Field1 = "init"
-	req.Field2 = "init"
-}
-
-type FindResult struct {
-	Dummy string
+type EchoRequest struct {
+	Field1 string
+	Field2 string
 }

@@ -74,11 +74,11 @@ func ToKebabCase(name string) string {
 	return Normalize(xstrings.ToKebabCase(name))
 }
 
-func ToCamelCase(name string) string {
+func ToUpperCamelCase(name string) string {
 	return Normalize(xstrings.ToCamelCase(xstrings.ToSnakeCase(name)))
 }
 
-func ToCamelCaseWithFirstLower(name string) string {
+func ToCamelCase(name string) string {
 	return Normalize(xstrings.FirstRuneToLower(xstrings.ToCamelCase(xstrings.ToSnakeCase(name))))
 }
 

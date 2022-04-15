@@ -26,17 +26,37 @@ type Service struct{}
 
 func (s *Service) Info() *services.Info {
 	return &services.Info{
-		Name:        "dummy",
-		Description: "Description for Dummy service",
-		ParentKeys:  nil,
+		Name:           "dummy",
+		Description:    "Description for Dummy service",
+		ParentServices: nil,
 	}
 }
 
 func (s *Service) Operations() []services.SupportedOperation {
 	return []services.SupportedOperation{
 		{
-			Name:          "Find",
+			Name:          "find",
 			OperationType: services.OperationsList,
+		},
+		{
+			Name:          "read",
+			OperationType: services.OperationsRead,
+		},
+		{
+			Name:          "error-read",
+			OperationType: services.OperationsRead,
+		},
+		{
+			Name:          "echo",
+			OperationType: services.OperationsRead,
+		},
+		{
+			Name:          "action",
+			OperationType: services.OperationsAction,
+		},
+		{
+			Name:          "error-action",
+			OperationType: services.OperationsAction,
 		},
 	}
 }

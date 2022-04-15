@@ -20,12 +20,13 @@ import (
 
 	"github.com/sacloud/services"
 	"github.com/sacloud/services/meta"
+	"github.com/sacloud/services/naming"
 	"github.com/sacloud/services/validate"
 )
 
 // NewParameter 指定のfuncのパラメータを新規作成&初期化して返す
 func NewParameter(service services.Service, funcName string) (interface{}, error) {
-	method, found := reflect.TypeOf(service).MethodByName(funcName)
+	method, found := reflect.TypeOf(service).MethodByName(naming.ToUpperCamelCase(funcName))
 	if !found {
 		return nil, fmt.Errorf("method %q not found", funcName)
 	}
@@ -46,7 +47,7 @@ func ServiceMeta(service services.Service) ([]OperationMeta, error) {
 	ops := service.Operations()
 	var results []OperationMeta
 	for _, op := range ops {
-		fields, err := ParameterMeta(service, op.Name)
+		fields, err := ParameterMeta(service, op.FuncName())
 		if err != nil {
 			return nil, err
 		}
