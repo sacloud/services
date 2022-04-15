@@ -15,7 +15,6 @@
 package helper
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/sacloud/services/dummy"
@@ -23,20 +22,11 @@ import (
 )
 
 func TestParameterMeta(t *testing.T) {
-	ops, err := ServiceMeta(dummy.New())
+	svc := dummy.New()
+	_, err := ServiceMeta(svc)
 	require.NoError(t, err)
 
-	for _, op := range ops {
-		fmt.Printf("%s(type:%s):\n", op.Operation.Name, op.Operation.OperationType)
-		for _, field := range op.Parameters {
-			fmt.Printf("\t%s:\n", field.Name)
-			fmt.Printf("\t\tStructField: %#+v\n", field.StructField)
-			fmt.Printf("\t\tTag: %#+v\n", field.Tag)
-			fmt.Printf("\t\tLongDescription: %#+v\n", field.Tag.LongDescription())
-			fmt.Printf("\t\tAliasesString: %#+v\n", field.Tag.AliasesString())
-			fmt.Printf("\t\tOptionsString: %#+v\n", field.Tag.OptionsString())
-		}
-	}
+	PrintServiceMeta(svc)
 }
 
 func TestNewParameter(t *testing.T) {
