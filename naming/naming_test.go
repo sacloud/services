@@ -27,7 +27,7 @@ func TestNames(t *testing.T) {
 		out string
 	}{
 		{
-			f:   ToCamelCase,
+			f:   ToUpperCamelCase,
 			in:  "AuthStatus",
 			out: "AuthStatus",
 		},
@@ -37,12 +37,12 @@ func TestNames(t *testing.T) {
 			out: "ipv4",
 		},
 		{
-			f:   ToCamelCase,
+			f:   ToUpperCamelCase,
 			in:  "IPv4",
 			out: "IPv4",
 		},
 		{
-			f:   ToCamelCaseWithFirstLower,
+			f:   ToCamelCase,
 			in:  "IPv4",
 			out: "ipv4",
 		},
@@ -52,27 +52,27 @@ func TestNames(t *testing.T) {
 			out: "dns",
 		},
 		{
-			f:   ToCamelCase,
+			f:   ToUpperCamelCase,
 			in:  "DNS",
 			out: "Dns",
 		},
 		{
-			f:   ToCamelCaseWithFirstLower,
+			f:   ToCamelCase,
 			in:  "DNS",
 			out: "dns",
 		},
 		{
-			f:   ToCamelCase,
+			f:   ToUpperCamelCase,
 			in:  "ipv6-enable",
 			out: "IPv6Enable",
 		},
 		{
-			f:   ToCamelCase,
+			f:   ToUpperCamelCase,
 			in:  "sim-info",
 			out: "SimInfo",
 		},
 		{
-			f:   ToCamelCase,
+			f:   ToUpperCamelCase,
 			in:  "simple-monitor",
 			out: "SimpleMonitor",
 		},

@@ -14,7 +14,12 @@
 
 package services
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/sacloud/services/naming"
+)
 
 // SupportedOperation サービスが提供する操作のメタデータ
 type SupportedOperation struct {
@@ -23,6 +28,19 @@ type SupportedOperation struct {
 
 	// 操作種別、種別によりIdが必要/不要が決定される
 	OperationType Operations
+}
+
+func (op *SupportedOperation) EqualsByName(name string) bool {
+	return naming.ToKebabCase(name) == naming.ToKebabCase(op.Name)
+}
+
+func (op *SupportedOperation) FuncName() string {
+	return naming.ToUpperCamelCase(op.Name)
+}
+
+// WithContextFuncName Nameを持つFuncに対応する、context.Contextを受け取るFuncの名前を返す
+func (op *SupportedOperation) WithContextFuncName() string {
+	return fmt.Sprintf("%sWithContext", naming.ToUpperCamelCase(op.Name))
 }
 
 // Service 各サービスが実装すべきインターフェース
