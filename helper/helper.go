@@ -36,6 +36,11 @@ func NewParameter(service services.Service, funcName string) (interface{}, error
 	return instance, nil
 }
 
+// ServicePkgPath serviceの実装が属するgoパッケージを取得
+func ServicePkgPath(service services.Service) string {
+	return reflect.TypeOf(service).Elem().PkgPath()
+}
+
 // ServiceMeta 指定のサービスが公開している操作をキーにfuncのパラメータのメタデータを格納したmapを返す
 func ServiceMeta(service services.Service) ([]OperationMeta, error) {
 	ops := service.Operations()
