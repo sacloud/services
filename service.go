@@ -38,6 +38,9 @@ type Service interface {
 
 // Info サービスについての情報
 type Info struct {
+	// サービスの名前
+	Name string
+
 	// サービスの説明
 	Description string
 
