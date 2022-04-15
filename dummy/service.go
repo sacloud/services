@@ -26,9 +26,9 @@ type Service struct{}
 
 func (s *Service) Info() *services.Info {
 	return &services.Info{
-		Name:        "dummy",
-		Description: "Description for Dummy service",
-		ParentKeys:  nil,
+		Name:           "dummy",
+		Description:    "Description for Dummy service",
+		ParentServices: nil,
 	}
 }
 
