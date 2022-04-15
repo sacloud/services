@@ -28,41 +28,37 @@ func PrintServiceMeta(service services.Service) {
 	}
 
 	info := service.Info()
-	fmt.Printf("======== Service[%s] ========\n", info.Name)
+	fmt.Println("---")
+	fmt.Printf("# Service[%s]\n", info.Name)
 	fmt.Printf("Name: %s\n", info.Name)
 	fmt.Printf("Description: %s\n", info.Description)
 	fmt.Printf("ParentKeys: %s\n", info.ParentKeys)
 
 	fmt.Println("Operations:")
 	for _, op := range ops {
-		fmt.Printf("\t%s(%s):\n", op.Operation.Name, op.Operation.OperationType)
+		fmt.Printf("  %s(%s):\n", op.Operation.Name, op.Operation.OperationType)
 		for _, field := range op.Parameters {
-			fmt.Printf("\t\t%s\n", field.Name)
+			fmt.Printf("    %s:\n", field.Name)
+			fmt.Printf("      StructField:\n")
+			fmt.Printf("        PkgPath: %s\n", field.StructField.PkgPath)
+			fmt.Printf("        Tag: %s\n", field.StructField.Tag)
+			fmt.Printf("        Type: %q\n", field.StructField.Type.String())
 
-			{
-				fmt.Println("\t\t\tStructField:")
-				fmt.Printf("\t\t\t\tPkgPath: %s\n", field.StructField.PkgPath)
-				fmt.Printf("\t\t\t\tTag: %s\n", field.StructField.Tag)
-				fmt.Printf("\t\t\t\tType: %s\n", field.StructField.Type.String())
-			}
-
-			{
-				fmt.Println("\t\t\tTag:")
-				fmt.Printf("\t\t\t\tFlagName: %s\n", field.Tag.FlagName)
-				fmt.Printf("\t\t\t\tFieldName: %s\n", field.Tag.FieldName)
-				fmt.Printf("\t\t\t\tAliases: %s\n", field.Tag.Aliases)
-				fmt.Printf("\t\t\t\tShorthand: %s\n", field.Tag.Shorthand)
-				fmt.Printf("\t\t\t\tDescription: %s\n", field.Tag.Description)
-				fmt.Printf("\t\t\t\tSquash: %t\n", field.Tag.Squash)
-				fmt.Printf("\t\t\t\tIgnore: %t\n", field.Tag.Ignore)
-				fmt.Printf("\t\t\t\tCategory: %s\n", field.Tag.Category)
-				fmt.Printf("\t\t\t\tOrder: %d\n", field.Tag.Order)
-				fmt.Printf("\t\t\t\tOptions: %s\n", field.Tag.Options)
-				fmt.Printf("\t\t\t\tDisplayOptions: %s\n", field.Tag.DisplayOptions)
-				fmt.Printf("\t\t\tLongDescription(): %#+v\n", field.Tag.LongDescription())
-				fmt.Printf("\t\t\tAliasesString(): %#+v\n", field.Tag.AliasesString())
-				fmt.Printf("\t\t\tOptionsString(): %#+v\n", field.Tag.OptionsString())
-			}
+			fmt.Printf("      Tag:\n")
+			fmt.Printf("        FlagName: %s\n", field.Tag.FlagName)
+			fmt.Printf("        FieldName: %s\n", field.Tag.FieldName)
+			fmt.Printf("        Aliases: %s\n", field.Tag.Aliases)
+			fmt.Printf("        Shorthand: %s\n", field.Tag.Shorthand)
+			fmt.Printf("        Description: %s\n", field.Tag.Description)
+			fmt.Printf("        Squash: %t\n", field.Tag.Squash)
+			fmt.Printf("        Ignore: %t\n", field.Tag.Ignore)
+			fmt.Printf("        Category: %s\n", field.Tag.Category)
+			fmt.Printf("        Order: %d\n", field.Tag.Order)
+			fmt.Printf("        Options: %s\n", field.Tag.Options)
+			fmt.Printf("        DisplayOptions: %s\n", field.Tag.DisplayOptions)
+			fmt.Printf("      LongDescription(): %#+v\n", field.Tag.LongDescription())
+			fmt.Printf("      AliasesString(): %#+v\n", field.Tag.AliasesString())
+			fmt.Printf("      OptionsString(): %#+v\n", field.Tag.OptionsString())
 		}
 	}
 }
