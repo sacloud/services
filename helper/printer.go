@@ -38,7 +38,7 @@ func PrintServiceMeta(service services.Service) {
 	for _, op := range ops {
 		fmt.Printf("  %s(%s):\n", op.Operation.Name, op.Operation.OperationType)
 		for _, field := range op.Parameters {
-			fmt.Printf("    %s:\n", field.Name)
+			fmt.Printf("    %s:\n", field.FieldName)
 			fmt.Printf("      StructField:\n")
 			fmt.Printf("        PkgPath: %s\n", field.StructField.PkgPath)
 			fmt.Printf("        Tag: %s\n", field.StructField.Tag)
