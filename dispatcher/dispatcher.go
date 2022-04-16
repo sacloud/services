@@ -27,12 +27,14 @@ import (
 
 var registry = map[string]services.Service{}
 
-func Register(platformName string, service services.Service) {
+func Register(platformName string, ss ...services.Service) {
 	if platformName == "" {
 		panic("platformName is required")
 	}
-	arguments := []string{platformName, service.Info().FullName()}
-	registry[key(arguments)] = service
+	for _, s := range ss {
+		args := []string{platformName, s.Info().FullName()}
+		registry[key(args)] = s
+	}
 }
 
 func Dispatch(arguments []string, parameter interface{}) (interface{}, error) {
@@ -84,30 +86,25 @@ func dispatch(ctx context.Context, service services.Service, op services.Support
 	method := reflect.ValueOf(service).MethodByName(op.WithContextFuncName())
 	results := method.Call([]reflect.Value{reflect.ValueOf(ctx), reflect.ValueOf(param)}) // xxxWithContextはctx+reqの2つだけを受け取るはず
 
-	switch op.OperationType {
-	case services.OperationsCreate, services.OperationsRead, services.OperationsUpdate, services.OperationsList:
+	var value interface{}
+	if op.OperationType.HasReturnValue() {
 		if len(results) != 2 {
 			return nil, fmt.Errorf("invalid results: want 2 results, but got %d: %+v", len(results), results)
 		}
-		value := results[0].Interface()
-		var err error
-		if e, ok := results[1].Interface().(error); ok {
-			err = e
-		}
-		return value, err
-	case services.OperationsAction, services.OperationsDelete:
+		// shift
+		value = results[0].Interface()
+		results = results[1:]
+	} else {
 		if len(results) != 1 {
 			return nil, fmt.Errorf("invalid results: want 1 results, but got %d: %+v", len(results), results)
 		}
-
-		var err error
-		if e, ok := results[0].Interface().(error); ok {
-			err = e
-		}
-		return nil, err
-	default:
-		panic(fmt.Sprintf("unknown operation type: %s", op.OperationType))
 	}
+
+	if e, ok := results[0].Interface().(error); ok {
+		err = e
+	}
+	return value, err
+
 }
 
 func key(arguments []string) string {
