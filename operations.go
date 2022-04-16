@@ -47,3 +47,14 @@ func (o Operations) String() string {
 		panic("got unknown Operations")
 	}
 }
+
+func (o Operations) HasReturnValue() bool {
+	switch o {
+	case OperationsCreate, OperationsRead, OperationsUpdate, OperationsList:
+		return true
+	case OperationsAction, OperationsDelete:
+		return false
+	default:
+		panic("got unknown Operations")
+	}
+}
