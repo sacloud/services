@@ -51,7 +51,6 @@ func testServiceImpl(svc services.Service) (error, error) {
 		return errors.ErrorOrNil(), warnings.ErrorOrNil()
 	}
 
-	validateInfo(svc, errors, warnings)
 	validateConfig(svc, errors, warnings)
 	validateOperations(svc, errors, warnings)
 
@@ -61,13 +60,6 @@ func testServiceImpl(svc services.Service) (error, error) {
 func appendErrors(err *multierror.Error, errors ...error) {
 	newError := multierror.Append(err, errors...)
 	*err = *newError
-}
-
-func validateInfo(svc services.Service, errors, warnings *multierror.Error) {
-	info := svc.Info()
-	if info.Description == "" {
-		appendErrors(warnings, fmt.Errorf("empty: Info().Description"))
-	}
 }
 
 func validateConfig(svc services.Service, errors, warnings *multierror.Error) {
