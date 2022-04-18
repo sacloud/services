@@ -14,35 +14,6 @@
 
 package services
 
-import (
-	"fmt"
-	"strings"
-
-	"github.com/sacloud/services/naming"
-)
-
-// SupportedOperation サービスが提供する操作のメタデータ
-type SupportedOperation struct {
-	// 操作(メソッド)の名前(ケバブケース)
-	Name string
-
-	// 操作種別、種別によりIdが必要/不要が決定される
-	OperationType Operations
-}
-
-func (op *SupportedOperation) EqualsByName(name string) bool {
-	return naming.ToKebabCase(name) == naming.ToKebabCase(op.Name)
-}
-
-func (op *SupportedOperation) FuncName() string {
-	return naming.ToUpperCamelCase(op.Name)
-}
-
-// WithContextFuncName Nameを持つFuncに対応する、context.Contextを受け取るFuncの名前を返す
-func (op *SupportedOperation) WithContextFuncName() string {
-	return fmt.Sprintf("%sWithContext", naming.ToUpperCamelCase(op.Name))
-}
-
 // Service 各サービスが実装すべきインターフェース
 type Service interface {
 	// Info サービスについての情報を返す
@@ -54,27 +25,4 @@ type Service interface {
 
 	// Config コンフィグ
 	Config() *Config
-}
-
-// Info サービスについての情報
-type Info struct {
-	// サービスの名前(ケバブケース)
-	Name string
-
-	// サービスの説明
-	Description string
-
-	// 親サービスの名称リスト
-	//
-	// 例えばservice1サービスがservice1/service2/service3という階層構造の場合、
-	// ["service1", "service2"]となる。
-	// この場合、service3サービスの各操作ではService1IdとService2Idというフィールドが存在し、必須パラメータであることが期待される。
-	// (ここで指定した名前をアッパーキャメルケースにしたものがフィールド名になる)
-	ParentServices []string
-}
-
-// FullName 親サービス名まで含めたサービス名称を返す
-func (info *Info) FullName() string {
-	elems := info.ParentServices
-	return strings.Join(append(elems, info.Name), "/")
 }

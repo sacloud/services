@@ -101,7 +101,7 @@ func validateOperation(svc services.Service, op services.SupportedOperation, err
 		appendErrors(errors, fmt.Errorf("required: Operations().Name"))
 	}
 	if op.OperationType == services.OperationsUnknown {
-		appendErrors(errors, fmt.Errorf("value must be set: Operations().OperationType: operation=%s", op.Name))
+		appendErrors(errors, fmt.Errorf("operation[%s]: value must be set: Operations().OperationType", op.Name))
 	}
 
 	// funcが定義されているか?
