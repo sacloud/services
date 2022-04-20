@@ -16,6 +16,8 @@ package dummy
 
 import (
 	"context"
+
+	"github.com/sacloud/services/meta"
 )
 
 func (s *Service) Find(req *FindRequest) ([]*FindResult, error) {
@@ -33,6 +35,12 @@ func (s *Service) FindWithContext(ctx context.Context, req *FindRequest) ([]*Fin
 type FindRequest struct {
 	Field1 string `validate:"required"`
 	Field2 string `validate:"omitempty,option2" meta:",options=option2"`
+}
+
+func init() {
+	optionDefs = append(optionDefs,
+		&meta.Option{Key: "option2", Values: []string{"o3", "o4"}},
+	)
 }
 
 func (req *FindRequest) Initialize() {

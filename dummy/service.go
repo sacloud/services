@@ -61,12 +61,13 @@ func (s *Service) Operations() []services.SupportedOperation {
 	}
 }
 
+var optionDefs = []*meta.Option{
+	{Key: "option1", Values: []string{"o1", "o2"}},
+}
+
 func (s *Service) Config() *services.Config {
 	return &services.Config{
-		OptionDefs: []*meta.Option{
-			{Key: "option1", Values: []string{"o1", "o2"}},
-			{Key: "option2", Values: []string{"o3", "o4"}},
-		},
+		OptionDefs: optionDefs,
 	}
 }
 
