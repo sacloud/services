@@ -37,26 +37,32 @@ func (s *Service) Operations() services.Operations {
 		{
 			Name:          "find",
 			OperationType: services.OperationTypeList,
+			CategoryName:  "basic",
 		},
 		{
 			Name:          "read",
 			OperationType: services.OperationTypeRead,
+			CategoryName:  "basic",
 		},
 		{
 			Name:          "error-read",
 			OperationType: services.OperationTypeRead,
+			CategoryName:  "category1",
 		},
 		{
 			Name:          "echo",
 			OperationType: services.OperationTypeRead,
+			CategoryName:  "category1",
 		},
 		{
 			Name:          "action",
 			OperationType: services.OperationTypeAction,
+			CategoryName:  "category2",
 		},
 		{
 			Name:          "error-action",
 			OperationType: services.OperationTypeAction,
+			CategoryName:  "category2",
 		},
 	}
 }
