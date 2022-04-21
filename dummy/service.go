@@ -36,27 +36,27 @@ func (s *Service) Operations() []services.SupportedOperation {
 	return []services.SupportedOperation{
 		{
 			Name:          "find",
-			OperationType: services.OperationsList,
+			OperationType: services.OperationTypeList,
 		},
 		{
 			Name:          "read",
-			OperationType: services.OperationsRead,
+			OperationType: services.OperationTypeRead,
 		},
 		{
 			Name:          "error-read",
-			OperationType: services.OperationsRead,
+			OperationType: services.OperationTypeRead,
 		},
 		{
 			Name:          "echo",
-			OperationType: services.OperationsRead,
+			OperationType: services.OperationTypeRead,
 		},
 		{
 			Name:          "action",
-			OperationType: services.OperationsAction,
+			OperationType: services.OperationTypeAction,
 		},
 		{
 			Name:          "error-action",
-			OperationType: services.OperationsAction,
+			OperationType: services.OperationTypeAction,
 		},
 	}
 }

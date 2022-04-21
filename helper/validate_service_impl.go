@@ -92,7 +92,7 @@ func validateOperation(svc services.Service, op services.SupportedOperation, err
 	if op.Name == "" {
 		appendErrors(errors, fmt.Errorf("required: Operations().Name"))
 	}
-	if op.OperationType == services.OperationsUnknown {
+	if op.OperationType == services.OperationTypeUnknown {
 		appendErrors(errors, fmt.Errorf("operation[%s]: value must be set: Operations().OperationType", op.Name))
 	}
 
@@ -119,20 +119,20 @@ func validateOperation(svc services.Service, op services.SupportedOperation, err
 	// 戻り値
 	for _, m := range []reflect.Method{method, methodWithContext} {
 		switch op.OperationType {
-		case services.OperationsList:
+		case services.OperationTypeList:
 			// 戻り値は[]xxx + error
 			if m.Type.NumOut() != 2 {
 				appendErrors(errors, fmt.Errorf("func %s() must return value + error", m.Name))
 				break
 			}
 
-		case services.OperationsCreate, services.OperationsRead, services.OperationsUpdate:
+		case services.OperationTypeCreate, services.OperationTypeRead, services.OperationTypeUpdate:
 			// 戻り値はxxx + error
 			if m.Type.NumOut() != 2 {
 				appendErrors(errors, fmt.Errorf("func %s() must return value + error", m.Name))
 				break
 			}
-		case services.OperationsAction, services.OperationsDelete:
+		case services.OperationTypeAction, services.OperationTypeDelete:
 			// 戻り値はerrorのみ
 			if m.Type.NumOut() != 1 {
 				appendErrors(errors, fmt.Errorf("func %s() must return error", m.Name))

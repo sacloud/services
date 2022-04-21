@@ -35,7 +35,7 @@ func Test_testServiceImpl(t *testing.T) {
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
 				operations: []services.SupportedOperation{
-					{Name: "find", OperationType: services.OperationsList},
+					{Name: "find", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: false,
@@ -81,8 +81,8 @@ func Test_testServiceImpl(t *testing.T) {
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
 				operations: []services.SupportedOperation{
-					{Name: "fake", OperationType: services.OperationsList},
-					{Name: "fake", OperationType: services.OperationsList},
+					{Name: "fake", OperationType: services.OperationTypeList},
+					{Name: "fake", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: true,
@@ -93,7 +93,7 @@ func Test_testServiceImpl(t *testing.T) {
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
 				operations: []services.SupportedOperation{
-					{Name: "dummy", OperationType: services.OperationsList},
+					{Name: "dummy", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: true,
@@ -104,7 +104,7 @@ func Test_testServiceImpl(t *testing.T) {
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
 				operations: []services.SupportedOperation{
-					{Name: "invalid-return-values", OperationType: services.OperationsList},
+					{Name: "invalid-return-values", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: true,

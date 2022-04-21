@@ -29,7 +29,7 @@ type SupportedOperation struct {
 	Description string
 
 	// 操作種別、種別によりIdが必要/不要が決定される
-	OperationType Operations
+	OperationType OperationType
 }
 
 func (op *SupportedOperation) EqualsByName(name string) bool {
