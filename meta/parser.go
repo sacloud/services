@@ -18,6 +18,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/sacloud/services/naming"
 )
@@ -56,6 +57,10 @@ func (o *Option) GetValues() []string {
 		values = append(values, o.ValuesFn()...)
 	}
 	return values
+}
+
+func (o *Option) String() string {
+	return strings.Join(o.GetValues(), " | ")
 }
 
 // Parser meta-tagのパーサー

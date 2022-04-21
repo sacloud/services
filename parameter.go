@@ -24,3 +24,10 @@ type ParameterInitializer interface {
 type ParameterValidator interface {
 	Validate() error
 }
+
+// ParameterExampleValuer パラメータが値の例示をサポートする場合に実装するインターフェース
+//
+// ここで返される値はJSONまたはYAMLで出力されることがあるため適切なタグを付与しておくこと
+type ParameterExampleValuer interface {
+	Examples() interface{}
+}
