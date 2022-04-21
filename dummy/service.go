@@ -32,31 +32,37 @@ func (s *Service) Info() *services.Info {
 	}
 }
 
-func (s *Service) Operations() []services.SupportedOperation {
-	return []services.SupportedOperation{
+func (s *Service) Operations() services.Operations {
+	return services.Operations{
 		{
 			Name:          "find",
-			OperationType: services.OperationsList,
+			OperationType: services.OperationTypeList,
+			CategoryName:  "basic",
 		},
 		{
 			Name:          "read",
-			OperationType: services.OperationsRead,
+			OperationType: services.OperationTypeRead,
+			CategoryName:  "basic",
 		},
 		{
 			Name:          "error-read",
-			OperationType: services.OperationsRead,
+			OperationType: services.OperationTypeRead,
+			CategoryName:  "category1",
 		},
 		{
 			Name:          "echo",
-			OperationType: services.OperationsRead,
+			OperationType: services.OperationTypeRead,
+			CategoryName:  "category1",
 		},
 		{
 			Name:          "action",
-			OperationType: services.OperationsAction,
+			OperationType: services.OperationTypeAction,
+			CategoryName:  "category2",
 		},
 		{
 			Name:          "error-action",
-			OperationType: services.OperationsAction,
+			OperationType: services.OperationTypeAction,
+			CategoryName:  "category2",
 		},
 	}
 }

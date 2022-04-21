@@ -12,28 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package services
+package services_test
 
-import "sort"
+import (
+	"reflect"
+	"testing"
 
-type Operations []SupportedOperation
+	"github.com/sacloud/services"
+	"github.com/sacloud/services/dummy"
+)
 
-// Categories 各操作のカテゴリーをアッパーキャメルケースにした上で昇順で返す
-//
-// カテゴリー未設定の場合は返す値に含めない
-func (o *Operations) Categories() []string {
-	categories := make(map[string]struct{})
-	for _, op := range *o {
-		if op.CategoryName != "" {
-			categories[op.Category()] = struct{}{}
-		}
+func TestOperations_Categories(t *testing.T) {
+	tests := []struct {
+		name string
+		o    services.Operations
+		want []string
+	}{
+		{
+			name: "dummy",
+			o:    dummy.New().Operations(),
+			want: []string{"Basic", "Category1", "Category2"},
+		},
 	}
-
-	var results []string
-	for k := range categories {
-		results = append(results, k)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.o.Categories(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Categories() = %v, want %v", got, tt.want)
+			}
+		})
 	}
-
-	sort.Strings(results)
-	return results
 }

@@ -29,7 +29,10 @@ type SupportedOperation struct {
 	Description string
 
 	// 操作種別、種別によりIdが必要/不要が決定される
-	OperationType Operations
+	OperationType OperationType
+
+	// この操作が属するカテゴリーの名称(省略可、指定する場合はケバブケース)
+	CategoryName string
 }
 
 func (op *SupportedOperation) EqualsByName(name string) bool {
@@ -43,4 +46,8 @@ func (op *SupportedOperation) FuncName() string {
 // WithContextFuncName Nameを持つFuncに対応する、context.Contextを受け取るFuncの名前を返す
 func (op *SupportedOperation) WithContextFuncName() string {
 	return fmt.Sprintf("%sWithContext", naming.ToUpperCamelCase(op.Name))
+}
+
+func (op *SupportedOperation) Category() string {
+	return naming.ToUpperCamelCase(op.CategoryName)
 }

@@ -14,7 +14,11 @@
 
 package services
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/sacloud/services/naming"
+)
 
 // Info サービスについての情報
 type Info struct {
@@ -31,10 +35,17 @@ type Info struct {
 	// この場合、service3サービスの各操作ではService1IdとService2Idというフィールドが存在し、必須パラメータであることが期待される。
 	// (ここで指定した名前をアッパーキャメルケースにしたものがフィールド名になる)
 	ParentServices []string
+
+	// カテゴリー名(ケバブケース)
+	CategoryName string
 }
 
 // FullName 親サービス名まで含めたサービス名称を返す
 func (info *Info) FullName() string {
 	elems := info.ParentServices
 	return strings.Join(append(elems, info.Name), "/")
+}
+
+func (info *Info) Category() string {
+	return naming.ToUpperCamelCase(info.CategoryName)
 }

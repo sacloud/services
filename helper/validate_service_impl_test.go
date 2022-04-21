@@ -34,8 +34,8 @@ func Test_testServiceImpl(t *testing.T) {
 			svc: &FakeService{
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
-				operations: []services.SupportedOperation{
-					{Name: "find", OperationType: services.OperationsList},
+				operations: services.Operations{
+					{Name: "find", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: false,
@@ -58,7 +58,7 @@ func Test_testServiceImpl(t *testing.T) {
 			svc: &FakeService{
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
-				operations: []services.SupportedOperation{
+				operations: services.Operations{
 					{Name: ""},
 				},
 			},
@@ -69,7 +69,7 @@ func Test_testServiceImpl(t *testing.T) {
 			svc: &FakeService{
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
-				operations: []services.SupportedOperation{
+				operations: services.Operations{
 					{Name: "fake"},
 				},
 			},
@@ -80,9 +80,9 @@ func Test_testServiceImpl(t *testing.T) {
 			svc: &FakeService{
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
-				operations: []services.SupportedOperation{
-					{Name: "fake", OperationType: services.OperationsList},
-					{Name: "fake", OperationType: services.OperationsList},
+				operations: services.Operations{
+					{Name: "fake", OperationType: services.OperationTypeList},
+					{Name: "fake", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: true,
@@ -92,8 +92,8 @@ func Test_testServiceImpl(t *testing.T) {
 			svc: &FakeService{
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
-				operations: []services.SupportedOperation{
-					{Name: "dummy", OperationType: services.OperationsList},
+				operations: services.Operations{
+					{Name: "dummy", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: true,
@@ -103,8 +103,8 @@ func Test_testServiceImpl(t *testing.T) {
 			svc: &FakeService{
 				info:   &services.Info{Name: "fake", Description: "desc"},
 				config: &services.Config{},
-				operations: []services.SupportedOperation{
-					{Name: "invalid-return-values", OperationType: services.OperationsList},
+				operations: services.Operations{
+					{Name: "invalid-return-values", OperationType: services.OperationTypeList},
 				},
 			},
 			wantError: true,
@@ -123,7 +123,7 @@ var _ services.Service = (*FakeService)(nil)
 
 type FakeService struct {
 	info       *services.Info
-	operations []services.SupportedOperation
+	operations services.Operations
 	config     *services.Config
 }
 
@@ -131,7 +131,7 @@ func (s *FakeService) Info() *services.Info {
 	return s.info
 }
 
-func (s *FakeService) Operations() []services.SupportedOperation {
+func (s *FakeService) Operations() services.Operations {
 	return s.operations
 }
 

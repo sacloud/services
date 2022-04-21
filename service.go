@@ -21,7 +21,7 @@ type Service interface {
 
 	// Operations サポートしている操作のメタデータ一覧
 	// この要素それぞれに対しxxxWithContext()が存在することが期待される
-	Operations() []SupportedOperation
+	Operations() Operations
 
 	// Config コンフィグ
 	Config() *Config
