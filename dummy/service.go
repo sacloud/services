@@ -32,8 +32,8 @@ func (s *Service) Info() *services.Info {
 	}
 }
 
-func (s *Service) Operations() []services.SupportedOperation {
-	return []services.SupportedOperation{
+func (s *Service) Operations() services.Operations {
+	return services.Operations{
 		{
 			Name:          "find",
 			OperationType: services.OperationTypeList,

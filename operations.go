@@ -14,15 +14,4 @@
 
 package services
 
-// Service 各サービスが実装すべきインターフェース
-type Service interface {
-	// Info サービスについての情報を返す
-	Info() *Info
-
-	// Operations サポートしている操作のメタデータ一覧
-	// この要素それぞれに対しxxxWithContext()が存在することが期待される
-	Operations() Operations
-
-	// Config コンフィグ
-	Config() *Config
-}
+type Operations []SupportedOperation
