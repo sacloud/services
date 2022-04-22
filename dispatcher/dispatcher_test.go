@@ -17,6 +17,7 @@ package dispatcher
 import (
 	"testing"
 
+	"github.com/sacloud/services"
 	"github.com/sacloud/services/dummy"
 	"github.com/stretchr/testify/require"
 )
@@ -119,7 +120,7 @@ func TestDispatch(t *testing.T) {
 	}
 
 	// 準備
-	Register("dummy", dummy.New())
+	Register("dummy", services.Services{dummy.New()})
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -136,7 +137,7 @@ func TestDispatch(t *testing.T) {
 }
 
 func TestDispatch_panic(t *testing.T) {
-	Register("dummy", dummy.New())
+	Register("dummy", services.Services{dummy.New()})
 
 	defer func() {
 		panicMessage := recover()
@@ -150,5 +151,5 @@ func TestRegister_panic(t *testing.T) {
 		panicMessage := recover()
 		require.Equal(t, "platformName is required", panicMessage)
 	}()
-	Register("", dummy.New())
+	Register("", services.Services{dummy.New()})
 }

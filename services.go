@@ -16,13 +16,13 @@ package services
 
 import "sort"
 
-type Operations []SupportedOperation
+type Services []Service
 
-// Categories 各操作のカテゴリーをアッパーキャメルケースにした上で昇順で返す
-func (o *Operations) Categories() []string {
+// Categories 各サービスのカテゴリーをアッパーキャメルケースにした上で昇順で返す
+func (s Services) Categories() []string {
 	categories := make(map[string]struct{})
-	for _, op := range *o {
-		categories[op.Category()] = struct{}{}
+	for _, svc := range s {
+		categories[svc.Info().Category()] = struct{}{}
 	}
 
 	var results []string
