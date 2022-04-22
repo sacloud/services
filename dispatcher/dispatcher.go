@@ -27,7 +27,7 @@ import (
 
 var registry = map[string]services.Service{}
 
-func Register(platformName string, ss ...services.Service) {
+func Register(platformName string, ss services.Services) {
 	if platformName == "" {
 		panic("platformName is required")
 	}

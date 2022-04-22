@@ -17,13 +17,14 @@ package dispatcher_test
 import (
 	"fmt"
 
+	"github.com/sacloud/services"
 	"github.com/sacloud/services/dispatcher"
 	"github.com/sacloud/services/dummy"
 )
 
 func Example() {
 	// サービスの登録
-	dispatcher.Register("my-platform", dummy.New())
+	dispatcher.Register("my-platform", services.Services{dummy.New()})
 
 	// サービスの呼び出し(プラットフォーム名 + 対象リソース名 + 操作, パラメータを渡す)
 	arguments := []string{"my-platform", "dummy", "read"}
