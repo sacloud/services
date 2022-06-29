@@ -94,17 +94,14 @@ func dispatch(ctx context.Context, service services.Service, op services.Support
 		// shift
 		value = results[0].Interface()
 		results = results[1:]
-	} else {
-		if len(results) != 1 {
-			return nil, fmt.Errorf("invalid results: want 1 results, but got %d: %+v", len(results), results)
-		}
+	} else if len(results) != 1 {
+		return nil, fmt.Errorf("invalid results: want 1 results, but got %d: %+v", len(results), results)
 	}
 
 	if e, ok := results[0].Interface().(error); ok {
 		err = e
 	}
 	return value, err
-
 }
 
 func key(arguments []string) string {

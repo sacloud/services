@@ -39,7 +39,7 @@ var normalizationWords = map[string]string{
 
 	"l_2tp":  "l2tp",
 	"l-2tp":  "l2tp",
-	"dns-11": "dns1", //xstrings.ToKebabCase対応
+	"dns-11": "dns1", // xstrings.ToKebabCase対応
 	"dns-22": "dns2",
 
 	"Ipsec": "IPsec",
@@ -60,7 +60,7 @@ func Normalize(name string) string {
 	n := name
 	for k, v := range normalizationWords {
 		if strings.Contains(n, k) && !isIncludeInNormalizationIgnoreWords(n) {
-			n = strings.Replace(n, k, v, -1)
+			n = strings.ReplaceAll(n, k, v)
 		}
 	}
 	return n
