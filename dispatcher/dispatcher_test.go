@@ -143,7 +143,7 @@ func TestDispatch_panic(t *testing.T) {
 		panicMessage := recover()
 		require.Equal(t, "invalid arguments", panicMessage)
 	}()
-	Dispatch([]string{}, nil) // nolint
+	Dispatch([]string{}, nil) //nolint
 }
 
 func TestRegister_panic(t *testing.T) {
