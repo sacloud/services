@@ -15,6 +15,6 @@ Note: IaaSとオブジェクトストレージは現在sacloud/servicesへの対
 
 ## License
 
-`sacloud/services` Copyright (C) 2022-2023 [The sacloud/services Authors](AUTHORS).
+`sacloud/services` Copyright (C) 2022-2025 [The sacloud/services Authors](AUTHORS).
 
 This project is published under [Apache 2.0 License](LICENSE.txt).
