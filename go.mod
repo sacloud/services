@@ -1,6 +1,6 @@
 module github.com/sacloud/services
 
-go 1.21
+go 1.25.5
 
 require (
 	github.com/go-playground/validator/v10 v10.16.0
