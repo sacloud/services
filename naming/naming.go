@@ -75,7 +75,7 @@ func ToKebabCase(name string) string {
 }
 
 func ToUpperCamelCase(name string) string {
-	return Normalize(xstrings.ToCamelCase(xstrings.ToSnakeCase(name)))
+	return Normalize(xstrings.ToPascalCase(xstrings.ToSnakeCase(name)))
 }
 
 func ToCamelCase(name string) string {
