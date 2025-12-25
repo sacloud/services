@@ -3,7 +3,7 @@ module github.com/sacloud/services
 go 1.25.5
 
 require (
-	github.com/go-playground/validator/v10 v10.30.0
+	github.com/go-playground/validator/v10 v10.30.1
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/huandu/xstrings v1.5.0
 	github.com/stretchr/testify v1.9.0
